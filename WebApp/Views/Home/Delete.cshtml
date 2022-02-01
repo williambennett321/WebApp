@@ -1,5 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApp.Models.TravelTicket
 @{
+    ViewData["Title"] = "Delete";
 }
+
+<h1>Delete Travel Ticket?</h1>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input class="btn btn-primary" type="submit" value="Yes" />
+    <a class="btn btn-danger" asp-action="Index">No</a>
+</form>

@@ -109,6 +109,28 @@ namespace WebApp.Controllers
             return View(travelTicket);
         }
 
+        public async Task<IActionResult> Delete(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var travelTicket = await _context.TravelTicket.FirstOrDefaultAsync(ticket => ticket.Id == Id);
+
+            return View(travelTicket);
+        }
+
+        // POST: Employees/Delete/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var travelTicket = await _context.TravelTicket.FindAsync(Id);
+            _context.TravelTicket.Remove(travelTicket);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
 
         public IActionResult Privacy()
                        {
