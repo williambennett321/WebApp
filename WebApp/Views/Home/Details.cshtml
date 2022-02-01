@@ -1,5 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApp.Models.TravelTicket
+
 @{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h1>Ticket Details: </h1>
+<div>
+    <p>@Html.DisplayNameFor(model => model.Id):</p>
+    <p><strong>@Html.DisplayFor(model => model.Id)</strong></p>
+</div>
+<div>
+    <p>@Html.DisplayNameFor(model => model.Origin):</p>
+    <p><strong>@Html.DisplayFor(model => model.Origin)</strong></p>
+</div>
+<div>
+    <p>@Html.DisplayNameFor(model => model.Destination):</p>
+    <p><strong>@Html.DisplayFor(model => model.Destination)</strong></p>
+</div>
+<div>
+    <p>@Html.DisplayNameFor(model => model.Cost):</p>
+    <p><strong>@Html.DisplayFor(model => model.Cost)</strong></p>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="AddOrEdit" asp-route-Id="@Model.Id">Edit</a>
+    <a class="btn btn-danger" asp-action="Index">Back</a>
+</div>
