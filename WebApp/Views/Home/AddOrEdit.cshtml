@@ -1,0 +1,41 @@
+﻿@model WebApp.Models.TravelTicket
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container p-3 my-3 border">
+    <h1> @ViewBag.PageName</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <hr />
+            <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (@ViewBag.IsEdit)
+                {
+                    <input type="hidden" asp-for="Id" />
+                }
+                <div class="form-group">
+                    <label asp-for="Origin" class="control-label"></label>
+                    <input asp-for="Origin" class="form-control" />
+                    <span asp-validation-for="Origin" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Destination" class="control-label"></label>
+                    <input asp-for="Destination" class="form-control" />
+                    <span asp-validation-for="Destination" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cost" class="control-label"></label>
+                    <input asp-for="Cost" class="form-control" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                    <a class="btn btn-danger" asp-action="Index">Back</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

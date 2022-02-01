@@ -29,20 +29,88 @@ namespace WebApp.Controllers
             return View(tickets);
         }
 
+        public async Task<IActionResult> AddOrEdit(int? Id)
+        {
+            ViewBag.PageName = Id == null ? "Create Ticket" : "Edit Ticket";
+            ViewBag.IsEdit = Id == null ? false : true;
+            if (Id == null)
+            {
+                return View();
+            }
+            else
+            {
+                var ticket = await _context.TravelTicket.FindAsync(Id);
+
+                if ( ticket == null)
+                {
+                    return NotFound();
+                }
+                return View(ticket);
+            }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrEdit(int Id, [Bind("Id,Origin,Destination,Cost")]
+        TravelTicket travelticketData)
+        {
+            bool IsTicketExist = false;
+
+            TravelTicket ticket = await _context.TravelTicket.FindAsync(Id);
+
+            if (ticket != null)
+            {
+                IsTicketExist = true;
+            }
+            else
+            {
+                ticket = new TravelTicket();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ticket.Id = travelticketData.Id;
+                    ticket.Origin = travelticketData.Origin;
+                    ticket.Destination = travelticketData.Destination;
+                    ticket.Cost = travelticketData.Cost;
+
+                    if (IsTicketExist)
+                    {
+                        _context.Update(ticket);
+                    }
+                    else
+                    {
+                        _context.Add(ticket);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(travelticketData);
+        }
+
+
+
         public IActionResult Privacy()
-        {
-            return View();
-        }
+                       {
+                            return View();
+                        }
 
-        public IActionResult settings()
-        {
-            return View();
-        }
+                    public IActionResult settings()
+                        {
+                            return View();
+                        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
-}
+                    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+                    public IActionResult Error()
+                        {
+                            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                        }
+                    }
+                }

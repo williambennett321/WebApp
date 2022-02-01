@@ -5,6 +5,10 @@
 
 <h1>Ticket List</h1>
 
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-outline-primary" asp-action="AddOrEdit">Create New</a>
+</p>
+
 
 <div class="table-responsive">
     <table class="table">
@@ -28,21 +32,29 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Origin)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Destination)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cost)
-                    </td>
-
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Origin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td class="text-center">
+                    <a asp-action="AddOrEdit" class="btn btn-outline-primary" asp-route-employeeId="@item.Id">Edit</a>
+                </td>
+                <td class="text-center">
+                    <a asp-action="Details" class="btn btn-outline-info" asp-route-employeeId="@item.Id">Details</a>
+                </td>
+                <td class="text-center">
+                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-employeeId="@item.Id">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
