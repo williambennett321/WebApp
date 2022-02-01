@@ -95,6 +95,19 @@ namespace WebApp.Controllers
             return View(travelticketData);
         }
 
+        public async Task<IActionResult> Details(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var travelTicket = await _context.TravelTicket.FirstOrDefaultAsync(ticket => ticket.Id == Id);
+            if (travelTicket == null)
+            {
+                return NotFound();
+            }
+            return View(travelTicket);
+        }
 
 
         public IActionResult Privacy()
