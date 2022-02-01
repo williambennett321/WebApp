@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Secret File
 appsettings.json
+**/appsettings.json
